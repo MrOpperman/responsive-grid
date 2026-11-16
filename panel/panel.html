@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Responsive Grid</title>
+    <link rel="stylesheet" href="panel.css">
+  </head>
+  <body>
+    <div class="toolbar">
+      <input
+        id="url"
+        class="url"
+        type="text"
+        spellcheck="false"
+        autocomplete="off"
+        placeholder="http://localhost:3000"
+        aria-label="URL to load in every frame"
+      >
+      <button id="reload" class="button" type="button" title="Reload every frame">Reload</button>
+      <div class="custom">
+        <input
+          id="custom-width"
+          class="custom-width"
+          type="number"
+          min="200"
+          max="5000"
+          step="1"
+          inputmode="numeric"
+          placeholder="Width"
+          aria-label="Custom viewport width in pixels"
+        >
+        <button id="custom-add" class="button" type="button">Add</button>
+      </div>
+      <button
+        id="fit"
+        class="button"
+        type="button"
+        aria-pressed="false"
+        title="Scale frames down to fit the available space. Layout widths stay real."
+      >Fit</button>
+      <span id="scale-label" class="scale-label" hidden></span>
+      <button
+        id="sync-scroll"
+        class="button"
+        type="button"
+        aria-pressed="false"
+        title="Keep scroll positions aligned across frames, proportional to each page height"
+      >Sync</button>
+      <button
+        id="sync-routes"
+        class="button"
+        type="button"
+        aria-pressed="false"
+        title="When one frame changes route, navigate the others to the same URL"
+      >Routes</button>
+      <button id="presets-button" class="button" type="button" aria-expanded="false">Devices</button>
+      <div id="presets" class="presets" hidden>
+        <div id="preset-list" class="preset-list"></div>
+      </div>
+    </div>
+    <main id="frames" class="frames"></main>
+    <p id="empty" class="empty">Pick a device preset or add a width.</p>
+    <script src="devices.js"></script>
+    <script src="panel.js"></script>
+  </body>
+</html>

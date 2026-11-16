@@ -1,0 +1,39 @@
+{
+  "manifest_version": 2,
+  "name": "Responsive Grid",
+  "version": "0.8.0",
+  "description": "Shows a page at several viewport widths side by side, in a DevTools panel or in a tab.",
+  "homepage_url": "https://github.com/MrOpperman/responsive-grid",
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "responsive-grid@mropperman.github.io",
+      "strict_min_version": "142.0",
+      "data_collection_permissions": {
+        "required": ["none"]
+      }
+    }
+  },
+  "permissions": ["storage", "tabs"],
+  "devtools_page": "devtools.html",
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "all_frames": true,
+      "run_at": "document_idle",
+      "js": ["content/frame-sync.js"]
+    }
+  ],
+  "browser_action": {
+    "default_title": "Responsive Grid",
+    "default_popup": "popup/popup.html",
+    "default_icon": {
+      "16": "icons/icon-16.png",
+      "32": "icons/icon-32.png"
+    }
+  },
+  "icons": {
+    "48": "icons/icon-48.png",
+    "96": "icons/icon-96.png",
+    "128": "icons/icon-128.png"
+  }
+}
