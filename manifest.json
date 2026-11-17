@@ -1,8 +1,8 @@
 {
   "manifest_version": 2,
   "name": "Responsive Grid",
-  "version": "0.8.0",
-  "description": "Shows a page at several viewport widths side by side, in a DevTools panel or in a tab.",
+  "version": "0.9.0",
+  "description": "Shows a page at several viewport widths side by side in a Firefox tab.",
   "homepage_url": "https://github.com/MrOpperman/responsive-grid",
   "browser_specific_settings": {
     "gecko": {
@@ -14,7 +14,6 @@
     }
   },
   "permissions": ["storage", "tabs"],
-  "devtools_page": "devtools.html",
   "content_scripts": [
     {
       "matches": ["<all_urls>"],

@@ -1,8 +1,8 @@
 {
   "name": "responsive-grid",
-  "version": "0.8.0",
+  "version": "0.9.0",
   "private": true,
-  "description": "Firefox add-on that shows a page at several viewport widths side by side, in a DevTools panel or in a tab.",
+  "description": "Firefox add-on that shows a page at several viewport widths side by side in a tab.",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -19,7 +19,7 @@
     "start": "web-ext run",
     "lint": "web-ext lint",
     "build": "web-ext build --overwrite-dest",
-    "check": "node --check devtools.js && node --check panel/panel.js && node --check panel/devices.js && node --check popup/popup.js && node --check content/frame-sync.js && node --check scripts/generate-devices.mjs && node --check web-ext-config.mjs",
+    "check": "node --check grid/grid.js && node --check grid/devices.js && node --check popup/popup.js && node --check content/frame-sync.js && node --check scripts/generate-devices.mjs && node --check web-ext-config.mjs",
     "devices": "node scripts/generate-devices.mjs"
   },
   "devDependencies": {

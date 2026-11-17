@@ -3,7 +3,7 @@ import { fileURLToPath } from "node:url";
 
 const SOURCE =
   "https://raw.githubusercontent.com/mozilla-firefox/firefox/main/services/settings/dumps/main/devtools-devices.json";
-const OUTPUT = fileURLToPath(new URL("../panel/devices.js", import.meta.url));
+const OUTPUT = fileURLToPath(new URL("../grid/devices.js", import.meta.url));
 const GROUPS = [
   ["phones", "Phones"],
   ["tablets", "Tablets"],

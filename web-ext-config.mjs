@@ -7,6 +7,7 @@ export default {
     "package.json",
     "package-lock.json",
     "scripts",
+    "docs",
     "README.md",
     "node_modules/**",
     "web-ext-artifacts/**",

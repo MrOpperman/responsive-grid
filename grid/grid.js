@@ -390,7 +390,7 @@ const setUrl = (url) => {
   for (const node of frameNodes.values()) {
     applyFrameUrl(node);
   }
-  syncTabLocation();
+  syncAddressBar();
 };
 
 const reloadAllFrames = () => {
@@ -680,31 +680,12 @@ const addCustomWidth = () => {
   elements.customWidth.value = "";
 };
 
-const isDevtoolsPanel = () => {
-  try {
-    return Boolean(browser.devtools?.panels);
-  } catch (error) {
-    return false;
-  }
+const getInitialUrl = () => {
+  return new URLSearchParams(window.location.search).get("url") || "";
 };
 
-const getInspectedUrl = async () => {
-  try {
-    const [href] = await browser.devtools.inspectedWindow.eval("location.href");
-    return typeof href === "string" ? href : "";
-  } catch (error) {
-    return "";
-  }
-};
-
-const getInitialUrl = async () => {
-  const fromQuery = new URLSearchParams(window.location.search).get("url");
-  return fromQuery || getInspectedUrl();
-};
-
-// In tab mode, keep the URL in the address bar so a refresh restores it.
-const syncTabLocation = () => {
-  if (isDevtoolsPanel()) return;
+// Keep the URL in the address bar so a refresh restores it.
+const syncAddressBar = () => {
   const next = new URL(window.location.href);
   if (state.url) {
     next.searchParams.set("url", state.url);
@@ -714,24 +695,13 @@ const syncTabLocation = () => {
   window.history.replaceState(null, "", next);
 };
 
-const applyTheme = (theme) => {
-  const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-  const resolved = theme === "dark" || theme === "light" ? theme : prefersDark ? "dark" : "light";
-  document.documentElement.dataset.theme = resolved;
-};
-
 const watchTheme = () => {
-  try {
-    const themeName = browser.devtools.panels.themeName;
-    if (themeName && typeof themeName.then === "function") {
-      themeName.then(applyTheme).catch(() => applyTheme());
-    } else {
-      applyTheme(themeName);
-    }
-    browser.devtools.panels.onThemeChanged.addListener(applyTheme);
-  } catch (error) {
-    applyTheme();
-  }
+  const query = window.matchMedia("(prefers-color-scheme: dark)");
+  const apply = () => {
+    document.documentElement.dataset.theme = query.matches ? "dark" : "light";
+  };
+  apply();
+  query.addEventListener("change", apply);
 };
 
 const loadFrames = async () => {
@@ -823,9 +793,9 @@ const init = async () => {
   watchTheme();
   buildPresetList();
   bindEvents();
-  state.url = await getInitialUrl();
+  state.url = getInitialUrl();
   elements.url.value = state.url;
-  syncTabLocation();
+  syncAddressBar();
   await loadFrames();
   await loadFit();
   await loadScrollSync();

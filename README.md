@@ -2,13 +2,15 @@
 
 A Firefox add-on for responsive work: one page, several viewport widths, side by side.
 
-Every frame is a real iframe at an exact device width, so CSS media queries fire at the same breakpoints as the device. Frames live in a DevTools panel or in a normal tab, can be dragged around freely, and can sync scroll and route changes.
+Every frame is a real iframe at an exact device width, so CSS media queries fire at the same breakpoints as the device. The grid opens in a normal tab from the toolbar, frames can be dragged around freely, and can sync scroll and route changes.
 
 Unofficial project, not affiliated with Mozilla.
 
+![The same demo page shown at 1440 and 810 pixel widths in the grid](docs/hero.png)
+
 ## Features
 
-- DevTools panel and toolbar tab view, sharing one saved layout
+- Toolbar button opens the grid in a tab, full window, one saved layout
 - Widths and heights from Firefox's own responsive mode device list, plus custom widths
 - Free-form canvas: drag frames anywhere, overlap them, grab one to raise it
 - Fit toggle scales the canvas to the window without changing iframe widths
@@ -23,7 +25,7 @@ Requires Firefox 142 or newer.
 1. Download or clone this repository.
 2. Open `about:debugging#/runtime/this-firefox`.
 3. Click **Load Temporary Add-on** and pick `manifest.json`.
-4. Open DevTools and select **Responsive Grid**, or click the toolbar icon and choose **Open grid in tab**.
+4. Click the toolbar icon and choose **Open grid in tab**.
 
 Temporary add-ons disappear when Firefox restarts. For a persistent install, run `npm run build` and sign the archive through [addons.mozilla.org](https://addons.mozilla.org/developers/).
 
@@ -32,23 +34,25 @@ Temporary add-ons disappear when Firefox restarts. For a persistent install, run
 - **Devices** opens the preset list. Widths and heights come from Firefox's responsive mode device list, one entry per distinct width.
 - **Width + Add** adds a custom width between 200 and 5000 px. Custom frames fill the available height; preset frames use their device height, capped to the space available.
 - **Reload** reloads every frame.
-- The URL field starts with the inspected tab (panel) or active tab (tab view). Edit it, for example to change the port, then press Enter to load every frame from that URL.
-- **Fit** scales the whole canvas down so every frame fits the panel or window, never above 100%. Scaling is a CSS transform, so iframe layout widths stay real and media queries keep firing at the true breakpoints. The percentage next to the button shows the current scale.
+- The URL field starts with the active tab URL. Edit it, for example to change the port, then press Enter to load every frame from that URL.
+- **Fit** scales the whole canvas down so every frame fits the window, never above 100%. Scaling is a CSS transform, so iframe layout widths stay real and media queries keep firing at the true breakpoints. The percentage next to the button shows the current scale.
 - **Sync** keeps scroll positions aligned across frames. It syncs proportions, not raw pixels, so frames with different page heights stay on the same relative spot.
 - **Routes** keeps frames on the same URL. A link click or client-side route change in one frame navigates the others to that URL.
 - Drag a frame header to place it anywhere on the canvas. Escape during a drag cancels the move.
 - The `x` on a frame header removes it. The header shows the size, for example `375x667`.
-- In tab view the URL also stays in the address bar, so a refresh restores it.
+- The URL also stays in the address bar, so a refresh restores it.
 
 ## Device presets
 
-`panel/devices.js` is generated, do not edit it by hand. It comes from Firefox's `devtools-devices` RemoteSettings dump (`services/settings/dumps/main/devtools-devices.json` in mozilla-central), reduced to one entry per viewport width per device class. Featured devices win conflicts, touch-only laptop variants lose, and then the shorter name wins.
+`grid/devices.js` is generated, do not edit it by hand. It comes from Firefox's `devtools-devices` RemoteSettings dump (`services/settings/dumps/main/devtools-devices.json` in mozilla-central), reduced to one entry per viewport width per device class. Featured devices win conflicts, touch-only laptop variants lose, and then the shorter name wins.
 
 Refresh the list with:
 
 ```sh
 npm run devices
 ```
+
+<img src="docs/device-presets.png" width="320" alt="Device presets grouped into phones, tablets, laptops, and televisions">
 
 ## Development
 
@@ -63,11 +67,10 @@ npm run build      # package into web-ext-artifacts/
 Layout of the source:
 
 - `manifest.json`: add-on manifest
-- `devtools.js`: registers the DevTools panel
-- `panel/`: the grid page used by both the panel and the tab view, plus the generated device list
+- `grid/`: the grid page opened in a tab, plus the generated device list
 - `popup/`: toolbar popup
 - `content/frame-sync.js`: content script for scroll and route sync
-- `scripts/generate-devices.mjs`: regenerates `panel/devices.js`
+- `scripts/generate-devices.mjs`: regenerates `grid/devices.js`
 
 ## Permissions and privacy
 

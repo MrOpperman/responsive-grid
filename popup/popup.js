@@ -6,7 +6,7 @@ let sourceUrl = "";
 const isFrameableUrl = (url) => typeof url === "string" && /^https?:/i.test(url);
 
 const openGridInTab = async () => {
-  const target = new URL(browser.runtime.getURL("panel/panel.html"));
+  const target = new URL(browser.runtime.getURL("grid/grid.html"));
   if (sourceUrl) {
     target.searchParams.set("url", sourceUrl);
   }
