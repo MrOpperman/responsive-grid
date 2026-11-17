@@ -6,7 +6,7 @@ Every frame is a real iframe at an exact device width, so CSS media queries fire
 
 Unofficial project, not affiliated with Mozilla.
 
-![The same demo page shown at 1440 and 810 pixel widths in the grid](docs/hero.png)
+![The same demo page at 375, 820, and 1280 pixel widths in the grid](docs/hero.png)
 
 ## Features
 

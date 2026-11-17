@@ -1,6 +1,6 @@
 {
   "name": "responsive-grid",
-  "version": "0.9.0",
+  "version": "1.0.0",
   "private": true,
   "description": "Firefox add-on that shows a page at several viewport widths side by side in a tab.",
   "license": "MIT",
