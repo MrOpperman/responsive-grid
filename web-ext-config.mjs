@@ -4,6 +4,7 @@ export default {
     ".editorconfig",
     ".gitignore",
     ".nvmrc",
+    ".npmrc",
     "package.json",
     "package-lock.json",
     "scripts",
